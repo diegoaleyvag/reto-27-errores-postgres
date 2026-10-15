@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f2f5">
+  <title>Mesa de solicitudes · Respuestas HTTP</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/estilos.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <header class="cabecera">
+    <a class="marca" href="/" aria-label="Mesa de solicitudes, inicio"><span class="marca-icono" aria-hidden="true">m.</span><span>Mesa de solicitudes</span></a>
+    <div class="equipo">Sebastián <span aria-hidden="true">&</span> Santiago</div>
+  </header>
+
+  <main id="contenido" class="pagina">
+    <div class="introduccion">
+      <div>
+        <p class="sobretitulo">RETO 27 <span aria-hidden="true">/</span> ESTADOS HTTP + POSTGRESQL</p>
+        <h1>Cada respuesta tiene<br>una solución.</h1>
+        <p class="bajada">Consulta, crea y descubre cómo una buena interfaz<br class="salto-escritorio"> te acompaña cuando algo falla.</p>
+      </div>
+      <div class="conexion"><span id="punto-conexion" class="punto" aria-hidden="true"></span><span id="estado-conexion" role="status">Comprobando conexión…</span><span class="conexion-nota">Base de datos PostgreSQL</span></div>
+    </div>
+
+    <div class="barra-seccion"><h2>Tu espacio de pruebas</h2><span>Respuestas reales, mensajes claros.</span></div>
+
+    <div class="espacio">
+      <section class="controles" aria-label="Preparar una solicitud">
+        <div class="pestanas" role="tablist" aria-label="Tipo de operación">
+          <button id="tab-escenarios" class="pestana activa" role="tab" aria-selected="true" aria-controls="panel-escenarios">Probar respuestas</button>
+          <button id="tab-crear" class="pestana" role="tab" aria-selected="false" aria-controls="panel-crear" tabindex="-1">Nueva solicitud</button>
+        </div>
+        <div id="panel-escenarios" role="tabpanel" aria-labelledby="tab-escenarios">
+          <p class="etiqueta-seccion">01 <span>ELIGE UN ESCENARIO</span></p>
+          <div class="escenarios" role="group" aria-label="Escenarios disponibles">
+            <button class="escenario seleccionado" data-escenario="correcta" aria-pressed="true"><span class="numero-escenario">200</span><span><strong>Todo en orden</strong><small>Consulta una solicitud existente</small></span><span class="radio" aria-hidden="true"></span></button>
+            <button class="escenario" data-escenario="invalida" aria-pressed="false"><span class="numero-escenario">400</span><span><strong>Faltan datos</strong><small>Envía un formulario incompleto</small></span><span class="radio" aria-hidden="true"></span></button>
+            <button class="escenario" data-escenario="ausente" aria-pressed="false"><span class="numero-escenario">404</span><span><strong>No encontrada</strong><small>Busca un número que no existe</small></span><span class="radio" aria-hidden="true"></span></button>
+            <button class="escenario" data-escenario="interno" aria-pressed="false"><span class="numero-escenario">500</span><span><strong>Error interno <em>Ensayo</em></strong><small>Prueba una falla controlada</small></span><span class="radio" aria-hidden="true"></span></button>
+          </div>
+          <form id="form-escenario" novalidate>
+            <p class="etiqueta-seccion preparar">02 <span>ENVÍA LA PETICIÓN</span></p>
+            <div id="grupo-numero" class="campo"><label for="numero">Número de solicitud</label><input id="numero" name="numero" type="text" inputmode="numeric" value="1" autocomplete="off"><p id="ayuda-numero" class="ayuda">Puedes usar uno de los números de la lista inferior.</p></div>
+            <p id="nota-escenario" class="nota" hidden></p>
+            <button id="enviar-escenario" type="submit" class="boton principal">Consultar solicitud <span aria-hidden="true">↗</span></button>
+          </form>
+        </div>
+
+        <div id="panel-crear" role="tabpanel" aria-labelledby="tab-crear" hidden>
+          <p class="etiqueta-seccion">NUEVA SOLICITUD</p>
+          <p class="texto-formulario">Cuéntanos qué necesitas. Tu solicitud quedará guardada en PostgreSQL.</p>
+          <form id="form-crear" novalidate>
+            <div class="campo"><label for="nombre">Tu nombre</label><input id="nombre" name="nombre" autocomplete="name" maxlength="80" aria-describedby="error-nombre"><p id="error-nombre" class="error-campo"></p></div>
+            <div class="campo"><label for="asunto">Asunto</label><input id="asunto" name="asunto" maxlength="120" placeholder="¿En qué podemos ayudarte?" aria-describedby="error-asunto"><p id="error-asunto" class="error-campo"></p></div>
+            <div class="campo"><label for="mensaje">Mensaje</label><textarea id="mensaje" name="mensaje" rows="4" maxlength="2000" placeholder="Incluye los detalles de tu solicitud." aria-describedby="ayuda-mensaje error-mensaje"></textarea><p id="ayuda-mensaje" class="ayuda">Entre 10 y 2000 caracteres.</p><p id="error-mensaje" class="error-campo"></p></div>
+            <button type="submit" class="boton principal">Guardar solicitud <span aria-hidden="true">↗</span></button>
+          </form>
+        </div>
+        <p class="pie-controles"><span aria-hidden="true">↻</span> La página no se recarga al enviar.</p>
+      </section>
+
+      <section class="respuesta" aria-label="Resultado de la petición">
+        <div id="resultado" class="resultado" data-estado="espera" aria-busy="false">
+          <div class="resultado-cabecera"><span class="etiqueta-seccion">RESPUESTA DEL SERVIDOR</span><span id="tipo-respuesta" class="estado-texto">En espera</span></div>
+          <div id="anuncio" class="anuncio" role="status" aria-live="polite" aria-atomic="true"><p id="codigo-respuesta" class="codigo-respuesta">—</p><h2 id="titulo-respuesta" tabindex="-1">Vamos a comprobarlo.</h2><p id="mensaje-respuesta" class="mensaje-respuesta">Elige un escenario y envía una petición. Aquí encontrarás la respuesta y el siguiente paso.</p></div>
+          <div id="datos-solicitud" class="datos-solicitud" hidden><span id="solicitud-numero" class="solicitud-numero"></span><span id="solicitud-estado" class="estado-solicitud"></span><h3 id="solicitud-asunto"></h3><p id="solicitud-mensaje"></p><p id="solicitud-persona" class="solicitud-persona"></p></div>
+          <ul id="errores-campos" class="errores-campos" hidden></ul>
+          <div id="siguiente-paso" class="siguiente-paso" hidden><span class="icono-paso" aria-hidden="true">↳</span><div><strong>Qué puedes hacer</strong><p id="accion-respuesta"></p></div></div>
+          <button id="recuperar" type="button" class="boton secundaria" hidden>Comprobar recuperación <span aria-hidden="true">↗</span></button>
+          <details id="detalles" class="detalles" hidden><summary>Ver detalles de la petición <span id="duracion" class="duracion"></span></summary><dl><div><dt>Petición</dt><dd id="detalle-ruta"></dd></div><div><dt>Estado</dt><dd id="detalle-estado"></dd></div><div><dt>Identificador</dt><dd id="detalle-id"></dd></div></dl><pre id="detalle-json" tabindex="0" aria-label="Respuesta JSON"></pre></details>
+        </div>
+        <section class="historial" aria-labelledby="titulo-historial"><div class="historial-cabecera"><h3 id="titulo-historial">Actividad de esta sesión</h3><button id="limpiar-historial" type="button" class="boton-texto">Limpiar</button></div><ol id="lista-historial"><li class="historial-vacio">Las peticiones que envíes aparecerán aquí.</li></ol></section>
+      </section>
+    </div>
+
+    <section class="recientes" aria-labelledby="titulo-recientes">
+      <div class="recientes-cabecera"><div><p class="sobretitulo">GUARDADAS EN POSTGRESQL</p><h2 id="titulo-recientes">Solicitudes recientes</h2></div><button id="actualizar" class="boton secundaria" type="button"><span aria-hidden="true">↻</span> Actualizar</button></div>
+      <p id="estado-recientes" class="ayuda" role="status">Cargando solicitudes…</p>
+      <div class="tabla-contenedor"><table><thead><tr><th scope="col">N.º</th><th scope="col">Asunto</th><th scope="col">Solicitante</th><th scope="col">Estado</th><th scope="col"><span class="solo-lectores">Acción</span></th></tr></thead><tbody id="lista-recientes"></tbody></table></div>
+    </section>
+  </main>
+  <footer class="pie"><span>Mesa de solicitudes <span aria-hidden="true">·</span> Reto 27</span><span>Una respuesta clara también es parte de la solución.</span></footer>
+</body>
+</html>

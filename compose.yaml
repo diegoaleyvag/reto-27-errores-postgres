@@ -1,0 +1,40 @@
+name: reto-27-errores-postgres
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-mesa_solicitudes}
+      POSTGRES_USER: ${POSTGRES_USER:-solicitudes}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-solicitudes_local}
+    volumes:
+      - datos_postgres:/var/lib/postgresql/data
+      - ./db/001-esquema.sql:/docker-entrypoint-initdb.d/001-esquema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:${APP_PORT:-3027}:3027"
+    environment:
+      PORT: 3027
+      PGHOST: db
+      PGPORT: 5432
+      PGDATABASE: ${POSTGRES_DB:-mesa_solicitudes}
+      PGUSER: ${POSTGRES_USER:-solicitudes}
+      PGPASSWORD: ${POSTGRES_PASSWORD:-solicitudes_local}
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3027/api/salud').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 4s
+      retries: 15
+      start_period: 10s
+    restart: unless-stopped
+volumes:
+  datos_postgres:

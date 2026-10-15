@@ -1,0 +1,25 @@
+name: Pruebas funcionales
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  integracion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+      - name: Iniciar aplicación y PostgreSQL
+        run: docker compose up --build -d --wait
+      - name: Verificar sintaxis
+        run: docker compose exec -T app npm run verificar
+      - name: Probar respuestas HTTP y persistencia
+        run: docker compose exec -T app npm test
+      - name: Mostrar registros en caso de fallo
+        if: failure()
+        run: docker compose logs --no-color
+      - name: Detener servicios
+        if: always()
+        run: docker compose down -v

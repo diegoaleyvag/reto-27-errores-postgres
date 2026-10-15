@@ -1,0 +1,103 @@
+
+> reto-27-errores-postgres@1.0.0 test
+> node --test --test-concurrency=1
+
+TAP version 13
+# Subtest: 200: PostgreSQL está disponible y la API no expone credenciales
+ok 1 - 200: PostgreSQL está disponible y la API no expone credenciales
+  ---
+  duration_ms: 29.518959
+  type: 'test'
+  ...
+# Subtest: 201 y 200: crear y recuperar una solicitud con persistencia real
+ok 2 - 201 y 200: crear y recuperar una solicitud con persistencia real
+  ---
+  duration_ms: 9.220333
+  type: 'test'
+  ...
+# Subtest: 200: la lista de solicitudes procede de la base de datos
+ok 3 - 200: la lista de solicitudes procede de la base de datos
+  ---
+  duration_ms: 3.306833
+  type: 'test'
+  ...
+# Subtest: 400: campos vacíos generan mensajes por campo
+ok 4 - 400: campos vacíos generan mensajes por campo
+  ---
+  duration_ms: 3.96875
+  type: 'test'
+  ...
+# Subtest: 400: tipos incorrectos y textos demasiado largos se rechazan
+ok 5 - 400: tipos incorrectos y textos demasiado largos se rechazan
+  ---
+  duration_ms: 7.299208
+  type: 'test'
+  ...
+# Subtest: 400: JSON mal formado devuelve un error seguro
+ok 6 - 400: JSON mal formado devuelve un error seguro
+  ---
+  duration_ms: 4.326459
+  type: 'test'
+  ...
+# Subtest: 400: identificadores inválidos no llegan a la consulta SQL
+ok 7 - 400: identificadores inválidos no llegan a la consulta SQL
+  ---
+  duration_ms: 8.172875
+  type: 'test'
+  ...
+# Subtest: 404: un número inexistente tiene una respuesta amable
+ok 8 - 404: un número inexistente tiene una respuesta amable
+  ---
+  duration_ms: 2.254791
+  type: 'test'
+  ...
+# Subtest: 500: el ensayo ejecuta un fallo real de PostgreSQL sin exponer detalles
+ok 9 - 500: el ensayo ejecuta un fallo real de PostgreSQL sin exponer detalles
+  ---
+  duration_ms: 3.137375
+  type: 'test'
+  ...
+# Subtest: 200 posterior al 500: la conexión se recupera tras ROLLBACK
+ok 10 - 200 posterior al 500: la conexión se recupera tras ROLLBACK
+  ---
+  duration_ms: 6.683
+  type: 'test'
+  ...
+# Subtest: las consultas parametrizadas conservan una inyección como texto literal
+ok 11 - las consultas parametrizadas conservan una inyección como texto literal
+  ---
+  duration_ms: 5.516458
+  type: 'test'
+  ...
+# Subtest: el contenido HTML se conserva como texto y no se interpreta en la API
+ok 12 - el contenido HTML se conserva como texto y no se interpreta en la API
+  ---
+  duration_ms: 3.920958
+  type: 'test'
+  ...
+# Subtest: 404: una ruta de API desconocida mantiene el contrato JSON
+ok 13 - 404: una ruta de API desconocida mantiene el contrato JSON
+  ---
+  duration_ms: 1.52075
+  type: 'test'
+  ...
+# Subtest: la interfaz se sirve localmente con política de recursos del mismo origen
+ok 14 - la interfaz se sirve localmente con política de recursos del mismo origen
+  ---
+  duration_ms: 2.583208
+  type: 'test'
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 14
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 173.899417
+npm notice
+npm notice New major version of npm available! 10.9.9 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

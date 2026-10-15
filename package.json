@@ -1,0 +1,17 @@
+{
+  "name": "reto-27-errores-postgres",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mesa de solicitudes con estados HTTP y persistencia PostgreSQL",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node src/servidor.js",
+    "test": "node --test --test-concurrency=1",
+    "verificar": "node --check src/servidor.js && node --check public/app.js && node --check test/integracion.test.js"
+  },
+  "dependencies": {
+    "express": "5.1.0",
+    "pg": "8.16.3"
+  }
+}
