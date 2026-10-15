@@ -1,0 +1,10 @@
+Correcto: consulta HTTP 200 recuperada desde PostgreSQL.
+Correcto: HTTP 400 real con mensaje personalizado y acción de recuperación.
+Correcto: HTTP 404 real con mensaje personalizado y acción de recuperación.
+Correcto: HTTP 500 real con mensaje personalizado y acción de recuperación.
+Correcto: después del ensayo 500 el botón de recuperación obtiene HTTP 200.
+Correcto: validación 400 por campo, creación 201, listado actualizado y formulario conservado sin recarga.
+Correcto: accesibilidad automática sin incidencias graves o críticas (0 incidencias totales).
+Correcto: pestañas controlables con teclado y pantalla móvil de 390 px sin desbordamiento.
+Correcto: pérdida real de red detectada y recuperación posterior HTTP 200.
+Correcto: no se produjeron errores de ejecución JavaScript.

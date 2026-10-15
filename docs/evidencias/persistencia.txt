@@ -1,0 +1,4 @@
+Correcto: registro creado mediante HTTP 201.
+Correcto: contenedores eliminados sin borrar el volumen.
+Correcto: contenedores recreados y comprobaciones de salud aprobadas.
+Correcto: el registro conserva su contenido después de recrear ambos contenedores.

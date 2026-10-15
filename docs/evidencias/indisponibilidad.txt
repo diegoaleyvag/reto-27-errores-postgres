@@ -1,0 +1,3 @@
+Correcto: un número vacío obtiene validación HTTP 400 desde el backend.
+Correcto: PostgreSQL detenido realmente; la API responde HTTP 503 y la interfaz explica cómo continuar.
+Correcto: PostgreSQL reiniciado; la misma interfaz se recupera con HTTP 200.

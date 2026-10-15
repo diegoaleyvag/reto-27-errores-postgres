@@ -56,7 +56,7 @@ El ensayo 500 está identificado de forma explícita. Es un error HTTP real orig
 | Makefile con inicio | `Makefile` y alternativas para Windows sin Make |
 | Base de datos PostgreSQL | `db/001-esquema.sql`, esquema y tres solicitudes de ejemplo |
 | Pruebas funcionales | `test/integracion.test.js`, HTTP real contra PostgreSQL |
-| Evidencia de pruebas | [Salida de las pruebas ejecutadas](docs/evidencias/pruebas.txt) |
+| Evidencia de pruebas | [Capturas, resultados y persistencia](docs/EVIDENCIAS.md) |
 | Guion y explicación para entregar | [docs/ENTREGA.md](docs/ENTREGA.md) |
 | Pruebas automáticas en GitHub | `.github/workflows/pruebas.yml` |
 

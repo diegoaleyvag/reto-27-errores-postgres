@@ -49,3 +49,7 @@ La evidencia automatizada se guarda en [evidencias/pruebas.txt](evidencias/prueb
 Las pruebas funcionales verifican el contrato HTTP y la persistencia. La adaptación visual y la navegación con teclado se revisan desde el navegador. Esta entrega permite crear y consultar solicitudes; los estados de las semillas son datos de ejemplo, sin un flujo de edición de estado.
 
 Para repetir los resultados en otra máquina, basta descargar el repositorio, iniciar los contenedores y ejecutar las pruebas como se indica en el README. No se incluye una base de datos con información personal de los integrantes.
+
+## Capturas y registros completos
+
+Las capturas de escritorio y móvil, la salida de las pruebas y los registros de persistencia están en [EVIDENCIAS.md](EVIDENCIAS.md).
